@@ -1,23 +1,120 @@
-# Compiled class file
-*.class
+public class ArrayList{
 
-# Log file
-*.log
+ private int [] list;
+ int count;
+ 
+ public ArrayList(int size){
+  list = new int[size];
+  count = 0;
+ }
+ 
+ public ArrayList(){
+  this(2);
+ }
+ 
+ public void doubleTheArray(){
+  int [] temp = new int[list.length * 2];
+  //transfer elements from list to temp
+  for(int i = 0; i < list.length; i++)
+   temp[i] = list[i];
+ list = temp;
+ }
+ public String toString(){
+  StringBuffer sb = new StringBuffer();
+   sb.append("{");
+   for(int i = 0; i < count;i++)
+    sb.append(list[i] + " ");
+   sb.append("}");
+  
+    return sb.toString();
+ }
+ 
+ public boolean isFull(){
+  return count == list.length;
+ }
+ public void addLast(int item){
+ if(isFull())
+  doubleTheArray();
+ list[count++] = item;
+  }
 
-# BlueJ files
-*.ctxt
+public int count(){
+ return count;
+}
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+public boolean isEmpty(){
+ return count == 0;
+}
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+public boolean isFound(int item){
+ //return true if item is in the list
+ boolean flag = false;
+ if(!isEmpty()){
+  for(int i = 0; i < count; i++){
+    if(list[i] == item){
+     //set flag = true
+     flag = true;
+     break;
+    }
+  }
+ }
+ return flag;
+}
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+/*publict int getPos(int item){
+ //return the index of item, if not found return -1
+}*/
+ 
+private void shiftRight(){
+  int pos = count;
+  while(pos > 0){
+   list[pos] = list[pos-1];
+   pos--;
+  }
+}
+
+
+public void addFront(int item){
+if(list != null){
+ if(isFull())
+  doubleTheArray();
+ shiftRight();
+ //put item at the first index
+ list[0] = item;
+ count++;
+}
+}
+
+
+public static void main(String [] args){
+ ArrayList list = new ArrayList();
+ list.addLast(5);
+ list.addLast(6);
+ list.addLast(7);
+ list.addLast(10);
+ list.addFront(11);
+ list.addFront(15);
+ System.out.println("list contains:" + list);
+ System.out.println("count is " + list.count());
+ System.out.println("is 7 found?: " + list.isFound(7));
+}
+
+//other methods
+/*
+ public void insertAtOrderedList(int item){}
+ public void removeFront(){
+ remove element at the beginning
+ }
+ public void removeLast(){
+ //remove element at the last
+ }
+ public void remove(int item){
+  remove item from the list
+ }
+ 
+ public void displayAllEven(){}
+ public int getSmallest(){}
+ public int getLargest(){}
+ public int getSum(){}
+*/
+}
